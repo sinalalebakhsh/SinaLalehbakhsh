@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-m+0(u_*2h$)+h6sc_aw3+vex_l^^=t5tgow0&w5qtp8@44kf4!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
 WAGTAILADMIN_BASE_URL = 'http://127.0.0.1:8000'
+WAGTAIL_SITE_NAME = 'Sina Lalehbakhsh'
+
+
 
 # Application definition
 
