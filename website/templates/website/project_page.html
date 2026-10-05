@@ -13,6 +13,15 @@
         content="{{ page.short_description|striptags }}"
     >
 
+    <meta property="og:title" content="{{ page.title }} | Sina Lalehbakhsh">
+    <meta
+        property="og:description"
+        content="{{ page.short_description|striptags }}"
+    >
+    <meta property="og:type" content="article">
+
+    <meta property="og:image" content="{{ page.image.url }}">
+
     <style>
         * {
             box-sizing: border-box;

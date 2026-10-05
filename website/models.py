@@ -45,6 +45,14 @@ class HomePage(Page):
         help_text="Contact information.",
     )
 
+    profile_image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Profile image shown on the homepage.",
+    )
 
     cv_url = models.URLField(
         blank=True,
@@ -71,6 +79,7 @@ class HomePage(Page):
         FieldPanel("cv_url"),
         FieldPanel("linkedin_url"),
         FieldPanel("github_url"),
+        FieldPanel("profile_image"),
     ]
 
 
@@ -103,10 +112,20 @@ class ProjectPage(Page):
         help_text="GitHub repository URL.",
     )
 
+    image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Project cover image.",
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel("short_description"),
         FieldPanel("description"),
         FieldPanel("technologies"),
         FieldPanel("project_url"),
         FieldPanel("github_url"),
+        FieldPanel("image"),
     ]
