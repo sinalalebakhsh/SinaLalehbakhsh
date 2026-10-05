@@ -1,3 +1,4 @@
+from wagtail.images import get_image_model
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
@@ -44,6 +45,21 @@ class HomePage(Page):
         help_text="Contact information.",
     )
 
+
+    cv_url = models.URLField(
+        blank=True,
+        help_text="CV or resume URL.",
+    )
+
+    linkedin_url = models.URLField(
+        blank=True,
+        help_text="LinkedIn profile URL.",
+    )
+
+    github_url = models.URLField(
+        blank=True,
+        help_text="GitHub profile URL.",
+    )
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
         FieldPanel("tagline"),
@@ -52,6 +68,9 @@ class HomePage(Page):
         FieldPanel("projects"),
         FieldPanel("experience"),
         FieldPanel("contact"),
+        FieldPanel("cv_url"),
+        FieldPanel("linkedin_url"),
+        FieldPanel("github_url"),
     ]
 
 
@@ -91,4 +110,3 @@ class ProjectPage(Page):
         FieldPanel("project_url"),
         FieldPanel("github_url"),
     ]
-    
