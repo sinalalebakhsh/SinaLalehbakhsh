@@ -43,11 +43,11 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.embeds',
     'wagtail.sites',
-
+    "modelsearch",
 
     'website',
 
-    
+
     'modelcluster',
     'taggit',
 

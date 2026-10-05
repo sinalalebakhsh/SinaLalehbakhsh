@@ -1,160 +1,32 @@
-{% load wagtailcore_tags %}
+{% extends "website/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+{{ page.title }} | Sina Lalehbakhsh
+{% endblock %}
 
-    <title>{{ page.title }} | Sina Lalehbakhsh</title>
+{% block meta %}
+<meta
+    name="description"
+    content="{{ page.short_description|striptags }}"
+>
+<meta property="og:title" content="{{ page.title }} | Sina Lalehbakhsh">
+<meta
+    property="og:description"
+    content="{{ page.short_description|striptags }}"
+>
+<meta property="og:type" content="article">
+{% endblock %}
 
-    <meta
-        name="description"
-        content="{{ page.short_description|striptags }}"
-    >
-
-    <meta property="og:title" content="{{ page.title }} | Sina Lalehbakhsh">
-    <meta
-        property="og:description"
-        content="{{ page.short_description|striptags }}"
-    >
-    <meta property="og:type" content="article">
-
-    <meta property="og:image" content="{{ page.image.url }}">
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.7;
-            color: #172033;
-            background: #f5f7fa;
-        }
-
-        .container {
-            width: min(900px, 90%);
-            margin: 0 auto;
-        }
-
-        nav {
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        nav .container {
-            min-height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            font-weight: bold;
-            color: #172033;
-            text-decoration: none;
-        }
-
-        .back-link {
-            color: #526075;
-            text-decoration: none;
-        }
-
-        main {
-            padding: 100px 0;
-        }
-
-        article {
-            background: #ffffff;
-            padding: 50px;
-            border-radius: 16px;
-            border: 1px solid #e5e7eb;
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            line-height: 1.1;
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            font-size: 1.6rem;
-            margin: 45px 0 20px;
-        }
-
-        .content {
-            color: #526075;
-            font-size: 1.08rem;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 40px;
-            flex-wrap: wrap;
-        }
-
-        .project-links a {
-            display: inline-block;
-            padding: 12px 20px;
-            border: 1px solid #172033;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #172033;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 50px;
-            color: #526075;
-            text-decoration: none;
-        }
-
-        footer {
-            padding: 40px 0;
-            text-align: center;
-            background: #172033;
-            color: #ffffff;
-        }
-
-        @media (max-width: 700px) {
-            article {
-                padding: 30px;
-            }
-
-            main {
-                padding: 60px 0;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<nav>
-    <div class="container">
-        <a href="{% pageurl page.get_parent %}" class="brand">
-            Sina Lalehbakhsh
-        </a>
-
-        <a href="{% pageurl page.get_parent %}" class="back-link">
-            Back to Home
-        </a>
-    </div>
-</nav>
+{% block content %}
 
 <main>
     <div class="container">
+        <article class="project-card">
 
-        <article>
+            {% if page.image %}
+                {% image page.image fill-1000x560 %}
+            {% endif %}
 
             <h1>{{ page.title }}</h1>
 
@@ -167,16 +39,14 @@
             {% if page.description %}
                 <section>
                     <h2>About This Project</h2>
-
                     <div class="content">
                         {{ page.description|richtext }}
                     </div>
                 </section>
             {% endif %}
-            
+
             {% if page.technologies %}
                 <h2>Technologies</h2>
-
                 <div class="content">
                     {{ page.technologies|richtext }}
                 </div>
@@ -186,21 +56,13 @@
                 <div class="project-links">
 
                     {% if page.project_url %}
-                        <a
-                            href="{{ page.project_url }}"
-                            target="_blank"
-                            rel="noopener"
-                        >
+                        <a href="{{ page.project_url }}" target="_blank" rel="noopener">
                             Live Project
                         </a>
                     {% endif %}
 
                     {% if page.github_url %}
-                        <a
-                            href="{{ page.github_url }}"
-                            target="_blank"
-                            rel="noopener"
-                        >
+                        <a href="{{ page.github_url }}" target="_blank" rel="noopener">
                             GitHub Repository
                         </a>
                     {% endif %}
@@ -208,23 +70,13 @@
                 </div>
             {% endif %}
 
-            <a
-                href="{% pageurl page.get_parent %}"
-                class="back"
-            >
+            <a href="{% pageurl page.get_parent %}">
                 ← Back to Home
             </a>
 
         </article>
-
     </div>
 </main>
 
-<footer>
-    <div class="container">
-        <p>© {% now "Y" %} Sina Lalehbakhsh. All rights reserved.</p>
-    </div>
-</footer>
+{% endblock %}
 
-</body>
-</html>

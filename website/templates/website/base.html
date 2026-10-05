@@ -1,0 +1,51 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Sina Lalehbakhsh | Software Developer{% endblock %}</title>
+
+    {% block meta %}
+    <meta
+        name="description"
+        content="Sina Lalehbakhsh — Software Developer focused on Python, Django, REST APIs and modern web development."
+    >
+    {% endblock %}
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
+</head>
+
+<body>
+
+<nav>
+    <div class="container nav-container">
+        <a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}" class="brand">
+            Sina Lalehbakhsh
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#about">About</a></li>
+            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#skills">Skills</a></li>
+            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#projects">Projects</a></li>
+            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#experience">Experience</a></li>
+            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#links">Links</a></li>
+            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+<footer>
+    <div class="container">
+        <p>© {% now "Y" %} Sina Lalehbakhsh. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
