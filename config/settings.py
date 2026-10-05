@@ -29,7 +29,10 @@ SECRET_KEY = 'django-insecure-m+0(u_*2h$)+h6sc_aw3+vex_l^^=t5tgow0&w5qtp8@44kf4!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+]
 
 WAGTAILADMIN_BASE_URL = 'http://127.0.0.1:8000'
 WAGTAIL_SITE_NAME = 'Sina Lalehbakhsh'
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.embeds',
     'wagtail.sites',
+    "wagtail.contrib.sitemaps",
     "modelsearch",
 
     'website',
@@ -156,3 +160,18 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+# Production Security
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
+# HTTPS settings — enable after SSL is active on the production domain.
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True

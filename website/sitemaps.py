@@ -1,13 +1,23 @@
 from django.contrib.sitemaps import Sitemap
-from wagtail.models import Page
+
+from website.models import HomePage, ProjectPage
 
 
-class WagtailSitemap(Sitemap):
+class PortfolioSitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.8
 
     def items(self):
-        return Page.objects.live().public().specific()
+        return [
+            HomePage.objects.live().first(),
+            *ProjectPage.objects.live(),
+        ]
 
     def location(self, obj):
-        return obj.url
+        if isinstance(obj, HomePage):
+            return "/"
+
+        return f"/{obj.slug}/"
+
+    def lastmod(self, obj):
+        return obj.last_published_at

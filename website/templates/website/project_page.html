@@ -5,78 +5,122 @@
 {{ page.title }} | Sina Lalehbakhsh
 {% endblock %}
 
-{% block meta %}
-<meta
-    name="description"
-    content="{{ page.short_description|striptags }}"
->
-<meta property="og:title" content="{{ page.title }} | Sina Lalehbakhsh">
-<meta
-    property="og:description"
-    content="{{ page.short_description|striptags }}"
->
-<meta property="og:type" content="article">
+{% block description %}
+{% if page.short_description %}
+{{ page.short_description|striptags }}
+{% else %}
+{{ page.title }} — software development project by Sina Lalehbakhsh.
+{% endif %}
+{% endblock %}
+
+{% block og_title %}
+{{ page.title }} | Sina Lalehbakhsh
+{% endblock %}
+
+{% block og_description %}
+{% if page.short_description %}
+{{ page.short_description|striptags }}
+{% else %}
+{{ page.title }} — software development project by Sina Lalehbakhsh.
+{% endif %}
 {% endblock %}
 
 {% block content %}
 
-<main>
-    <div class="container">
-        <article class="project-card">
+<main class="project-page">
 
-            {% if page.image %}
-                {% image page.image fill-1000x560 %}
-            {% endif %}
+    <section class="project-hero">
+        <div class="container">
+
+            <a href="/#projects" class="back-link">
+                ← Back to Projects
+            </a>
 
             <h1>{{ page.title }}</h1>
 
             {% if page.short_description %}
-                <div class="content">
+                <div class="project-lead">
                     {{ page.short_description|richtext }}
                 </div>
             {% endif %}
 
+        </div>
+    </section>
+
+    {% if page.image %}
+    <section class="project-image-section">
+        <div class="container">
+            {% image page.image width-1200 class="project-main-image" %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="project-content">
+        <div class="container">
+
             {% if page.description %}
-                <section>
-                    <h2>About This Project</h2>
-                    <div class="content">
-                        {{ page.description|richtext }}
-                    </div>
-                </section>
+            <div class="project-section">
+                <h2>Overview</h2>
+
+                <div class="content">
+                    {{ page.description|richtext }}
+                </div>
+            </div>
             {% endif %}
 
             {% if page.technologies %}
+            <div class="project-section">
                 <h2>Technologies</h2>
+
                 <div class="content">
                     {{ page.technologies|richtext }}
                 </div>
+            </div>
             {% endif %}
 
             {% if page.project_url or page.github_url %}
+            <div class="project-section">
+                <h2>Project Links</h2>
+
                 <div class="project-links">
 
                     {% if page.project_url %}
-                        <a href="{{ page.project_url }}" target="_blank" rel="noopener">
+                        <a
+                            href="{{ page.project_url }}"
+                            target="_blank"
+                            rel="noopener"
+                        >
                             Live Project
                         </a>
                     {% endif %}
 
                     {% if page.github_url %}
-                        <a href="{{ page.github_url }}" target="_blank" rel="noopener">
+                        <a
+                            href="{{ page.github_url }}"
+                            target="_blank"
+                            rel="noopener"
+                        >
                             GitHub Repository
                         </a>
                     {% endif %}
 
                 </div>
+            </div>
             {% endif %}
 
-            <a href="{% pageurl page.get_parent %}">
-                ← Back to Home
+        </div>
+    </section>
+
+    <section class="project-navigation">
+        <div class="container">
+
+            <a href="/#projects" class="back-link">
+                ← Back to Projects
             </a>
 
-        </article>
-    </div>
+        </div>
+    </section>
+
 </main>
 
 {% endblock %}
-

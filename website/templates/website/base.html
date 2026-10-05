@@ -15,7 +15,10 @@
 
     <meta name="author" content="Sina Lalehbakhsh">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 
+
+    
     <meta property="og:site_name" content="Sina Lalehbakhsh">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{% block og_title %}Sina Lalehbakhsh | Django Backend Developer{% endblock %}">
@@ -23,6 +26,10 @@
         property="og:description"
         content="{% block og_description %}Django Backend Developer and Software Developer focused on Python, Django, REST APIs and scalable web applications.{% endblock %}"
     >
+    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'website/og-image.svg' %}">
+    <meta property="og:image:type" content="image/svg+xml">
 
     <link rel="icon" type="image/svg+xml" href="{% static 'website/favicon.svg' %}">
     <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
