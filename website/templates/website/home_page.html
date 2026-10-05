@@ -1,0 +1,263 @@
+{% load wagtailcore_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ page.title }} | Software Developer</title>
+
+    <meta
+        name="description"
+        content="Sina Lalehbakhsh — Software Developer focused on Python, Django and modern web development."
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+            color: #172033;
+            background: #ffffff;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: 0 auto;
+        }
+
+        header {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background: #f5f7fa;
+        }
+
+        .hero {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .hero .tagline {
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            color: #526075;
+            margin-bottom: 30px;
+        }
+
+        .hero .intro {
+            font-size: 1.1rem;
+            max-width: 700px;
+            color: #526075;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        nav .container {
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #526075;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        section:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 35px;
+        }
+
+        .content {
+            max-width: 800px;
+            font-size: 1.08rem;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            background: #172033;
+            color: #ffffff;
+        }
+
+        @media (max-width: 700px) {
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            header {
+                min-height: 80vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="container">
+        <a href="#home" class="brand">{{ page.title }}</a>
+
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header id="home">
+    <div class="container">
+        <div class="hero">
+
+            <h1>{{ page.title }}</h1>
+
+            {% if page.tagline %}
+                <div class="tagline">
+                    {{ page.tagline|richtext }}
+                </div>
+            {% endif %}
+
+            {% if page.intro %}
+                <div class="intro">
+                    {{ page.intro|richtext }}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</header>
+
+<main>
+
+    {% if page.about %}
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+
+            <div class="content">
+                {{ page.about|richtext }}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+
+    {% if page.skills %}
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Technologies</h2>
+
+            <div class="content">
+                {{ page.skills|richtext }}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+
+    {% if page.projects %}
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+
+            <div class="content">
+                {{ page.projects|richtext }}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+
+    {% if page.experience %}
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+
+            <div class="content">
+                {{ page.experience|richtext }}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+
+    {% if page.contact %}
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+
+            <div class="content">
+                {{ page.contact|richtext }}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+</main>
+
+<footer>
+    <div class="container">
+        <p>© {% now "Y" %} {{ page.title }}. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
+

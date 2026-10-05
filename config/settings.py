@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'wagtail.embeds',
     'wagtail.sites',
 
+
+    'website',
+
+    
     'modelcluster',
     'taggit',
 
