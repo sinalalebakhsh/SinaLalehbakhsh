@@ -155,6 +155,16 @@
                 </div>
             {% endif %}
 
+            {% if page.description %}
+                <section>
+                    <h2>About This Project</h2>
+
+                    <div class="content">
+                        {{ page.description|richtext }}
+                    </div>
+                </section>
+            {% endif %}
+            
             {% if page.technologies %}
                 <h2>Technologies</h2>
 

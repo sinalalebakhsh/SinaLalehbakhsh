@@ -56,12 +56,17 @@ class HomePage(Page):
 
 
 class ProjectPage(Page):
-    template = "website/project_page.html"
     parent_page_types = ["website.HomePage"]
-    
+    template = "website/project_page.html"
+
     short_description = RichTextField(
         blank=True,
         help_text="Short project description.",
+    )
+
+    description = RichTextField(
+        blank=True,
+        help_text="Detailed project description.",
     )
 
     technologies = RichTextField(
@@ -81,12 +86,9 @@ class ProjectPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("short_description"),
+        FieldPanel("description"),
         FieldPanel("technologies"),
         FieldPanel("project_url"),
         FieldPanel("github_url"),
     ]
-
-    class Meta:
-        verbose_name = "Project"
-        verbose_name_plural = "Projects"
-
+    
