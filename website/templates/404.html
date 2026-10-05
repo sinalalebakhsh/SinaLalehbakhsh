@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Page Not Found | Sina Lalehbakhsh</title>
+
+    <meta
+        name="description"
+        content="The requested page could not be found."
+    >
+
+    <link rel="icon" type="image/svg+xml" href="{% static 'website/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
+</head>
+
+<body>
+
+<main class="error-page">
+    <div class="container">
+
+        <div class="error-content">
+            <p class="error-code">404</p>
+
+            <h1>Page Not Found</h1>
+
+            <p>
+                The page you are looking for does not exist or has been moved.
+            </p>
+
+            <a href="/" class="error-link">
+                Back to Homepage
+            </a>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
+

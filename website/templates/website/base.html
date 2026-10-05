@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,16 +6,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Sina Lalehbakhsh | Software Developer{% endblock %}</title>
+    <title>{% block title %}Sina Lalehbakhsh | Django Backend Developer{% endblock %}</title>
 
-    {% block meta %}
     <meta
         name="description"
-        content="Sina Lalehbakhsh — Software Developer focused on Python, Django, REST APIs and modern web development."
+        content="{% block description %}Sina Lalehbakhsh — Django Backend Developer and Software Developer focused on Python, Django, REST APIs and scalable web applications.{% endblock %}"
     >
-    {% endblock %}
 
-    {% load static %}
+    <meta name="author" content="Sina Lalehbakhsh">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:site_name" content="Sina Lalehbakhsh">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Sina Lalehbakhsh | Django Backend Developer{% endblock %}">
+    <meta
+        property="og:description"
+        content="{% block og_description %}Django Backend Developer and Software Developer focused on Python, Django, REST APIs and scalable web applications.{% endblock %}"
+    >
+
+    <link rel="icon" type="image/svg+xml" href="{% static 'website/favicon.svg' %}">
     <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
 </head>
 
@@ -23,18 +32,20 @@
 
 <nav>
     <div class="container nav-container">
-        <a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}" class="brand">
+
+        <a href="/" class="brand">
             Sina Lalehbakhsh
         </a>
 
         <ul class="nav-links">
-            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#about">About</a></li>
-            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#skills">Skills</a></li>
-            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#projects">Projects</a></li>
-            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#experience">Experience</a></li>
-            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#links">Links</a></li>
-            <li><a href="{% if page.get_parent %}{% pageurl page.get_parent %}{% else %}/{% endif %}#contact">Contact</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#skills">Skills</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/#experience">Experience</a></li>
+            <li><a href="/#links">Links</a></li>
+            <li><a href="/#contact">Contact</a></li>
         </ul>
+
     </div>
 </nav>
 
@@ -49,3 +60,4 @@
 
 </body>
 </html>
+
