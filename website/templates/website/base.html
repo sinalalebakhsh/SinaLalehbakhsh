@@ -33,6 +33,28 @@
 
     <link rel="icon" type="image/svg+xml" href="{% static 'website/favicon.svg' %}">
     <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Sina Lalehbakhsh",
+            "url": "{{ request.scheme }}://{{ request.get_host }}",
+            "jobTitle": "Django Backend Developer"
+        }
+    </script>
+    <!-- <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Sina Lalehbakhsh",
+            "url": "{{ request.scheme }}://{{ request.get_host }}",
+            "jobTitle": "Django Backend Developer",
+            "sameAs": [
+                "{{ page.linkedin_url|default:'' }}",
+                "{{ page.github_url|default:'' }}"
+            ]
+        }
+    </script> -->
 </head>
 
 <body>

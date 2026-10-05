@@ -19,24 +19,10 @@ Django Backend Developer and Software Developer focused on Python, Django, REST 
 
 {% block content %}
 
-<meta
-    name="description"
-    content="Django Backend Developer and Software Developer focused on Python, Django, REST APIs, scalable web applications and clean architecture."
->
-<meta property="og:title" content="{{ page.title }} | Django Backend Developer">
-<meta
-    property="og:description"
-    content="Django Backend Developer and Software Developer focused on Python, Django, REST APIs, scalable web applications and clean architecture."
->
-<meta property="og:type" content="website">
-{% endblock %}
-
-{% block content %}
-
 <header id="home">
     <div class="container">
         <div class="hero">
-            
+
             {% if page.profile_image %}
                 <div class="profile-image-wrapper">
                     {% image page.profile_image fill-220x220 %}
@@ -182,4 +168,3 @@ Django Backend Developer and Software Developer focused on Python, Django, REST 
 </main>
 
 {% endblock %}
-
