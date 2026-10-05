@@ -1,3 +1,4 @@
+from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
@@ -5,6 +6,7 @@ from wagtail.models import Page
 
 class HomePage(Page):
     max_count = 1
+    subpage_types = ["website.ProjectPage"]
     template = "website/home_page.html"
 
     intro = RichTextField(
@@ -29,7 +31,7 @@ class HomePage(Page):
 
     projects = RichTextField(
         blank=True,
-        help_text="Main projects and portfolio.",
+        help_text="Short introduction for the projects section.",
     )
 
     experience = RichTextField(
@@ -52,10 +54,39 @@ class HomePage(Page):
         FieldPanel("contact"),
     ]
 
+
+class ProjectPage(Page):
+    template = "website/project_page.html"
+    parent_page_types = ["website.HomePage"]
+    
+    short_description = RichTextField(
+        blank=True,
+        help_text="Short project description.",
+    )
+
+    technologies = RichTextField(
+        blank=True,
+        help_text="Technologies used in this project.",
+    )
+
+    project_url = models.URLField(
+        blank=True,
+        help_text="Live project URL.",
+    )
+
+    github_url = models.URLField(
+        blank=True,
+        help_text="GitHub repository URL.",
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("short_description"),
+        FieldPanel("technologies"),
+        FieldPanel("project_url"),
+        FieldPanel("github_url"),
+    ]
+
     class Meta:
-        verbose_name = "Home Page"
-        verbose_name_plural = "Home Page"
+        verbose_name = "Project"
+        verbose_name_plural = "Projects"
 
-
-
-        

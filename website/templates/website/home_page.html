@@ -123,6 +123,37 @@
             margin-bottom: 15px;
         }
 
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            padding: 30px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .project-card a {
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         footer {
             padding: 40px 0;
             text-align: center;
@@ -212,17 +243,43 @@
     {% endif %}
 
 
-    {% if page.projects %}
     <section id="projects">
         <div class="container">
+
             <h2 class="section-title">Projects</h2>
 
-            <div class="content">
-                {{ page.projects|richtext }}
+            {% if page.projects %}
+                <div class="content">
+                    {{ page.projects|richtext }}
+                </div>
+            {% endif %}
+
+            <div class="project-grid">
+
+                {% for project in page.get_children.live.specific %}
+                    <article class="project-card">
+
+                        <h3>{{ project.title }}</h3>
+
+                        {% if project.short_description %}
+                            <div>
+                                {{ project.short_description|richtext }}
+                            </div>
+                        {% endif %}
+
+                        <a href="{% pageurl project %}">
+                            View Project →
+                        </a>
+
+                    </article>
+                {% empty %}
+                    <p>No projects available yet.</p>
+                {% endfor %}
+
             </div>
+
         </div>
     </section>
-    {% endif %}
 
 
     {% if page.experience %}
