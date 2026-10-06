@@ -80,7 +80,7 @@
 
             {% if page.project_url or page.github_url %}
             <div class="project-section">
-                <h2>Project Links</h2>
+                <h2>Explore This Project</h2>
 
                 <div class="project-links">
 
@@ -89,8 +89,9 @@
                             href="{{ page.project_url }}"
                             target="_blank"
                             rel="noopener"
+                            class="project-button primary"
                         >
-                            Live Project
+                            View Live Project →
                         </a>
                     {% endif %}
 
@@ -99,8 +100,9 @@
                             href="{{ page.github_url }}"
                             target="_blank"
                             rel="noopener"
+                            class="project-button secondary"
                         >
-                            GitHub Repository
+                            View on GitHub →
                         </a>
                     {% endif %}
 
@@ -114,9 +116,35 @@
     <section class="project-navigation">
         <div class="container">
 
-            <a href="/#projects" class="back-link">
-                ← Back to Projects
-            </a>
+            <div class="project-nav">
+
+                {% if page.previous_project %}
+                    <a
+                        href="{% pageurl page.previous_project %}"
+                        class="project-nav-link"
+                    >
+                        ← {{ page.previous_project.title }}
+                    </a>
+                {% else %}
+                    <span></span>
+                {% endif %}
+
+                <a href="/#projects" class="back-link">
+                    All Projects
+                </a>
+
+                {% if page.next_project %}
+                    <a
+                        href="{% pageurl page.next_project %}"
+                        class="project-nav-link"
+                    >
+                        {{ page.next_project.title }} →
+                    </a>
+                {% else %}
+                    <span></span>
+                {% endif %}
+
+            </div>
 
         </div>
     </section>

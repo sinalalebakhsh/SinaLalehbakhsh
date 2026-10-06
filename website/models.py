@@ -129,3 +129,25 @@ class ProjectPage(Page):
         FieldPanel("github_url"),
         FieldPanel("image"),
     ]
+
+    @property
+    def previous_project(self):
+        return (
+            self.get_siblings()
+            .live()
+            .specific()
+            .filter(path__lt=self.path)
+            .order_by("-path")
+            .first()
+        )
+
+    @property
+    def next_project(self):
+        return (
+            self.get_siblings()
+            .live()
+            .specific()
+            .filter(path__gt=self.path)
+            .order_by("path")
+            .first()
+        )
