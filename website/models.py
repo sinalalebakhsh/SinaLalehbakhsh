@@ -3,6 +3,25 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
+from wagtail.snippets.models import register_snippet
+
+
+@register_snippet
+class ProjectTag(models.Model):
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+    )
+
+    slug = models.SlugField(
+        max_length=100,
+        unique=True,
+    )
+
+    def __str__(self):
+        return self.name
+
+
 
 
 class HomePage(Page):
@@ -121,14 +140,45 @@ class ProjectPage(Page):
         help_text="Project cover image.",
     )
 
+    role = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Your role in this project.",
+    )
+
+    project_type = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Type of project, for example Personal Project or Client Project.",
+    )
+
+    status = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Current project status.",
+    )
+
+
+    tags = models.ManyToManyField(
+        ProjectTag,
+        blank=True,
+        related_name="projects",
+    )
+
+
     content_panels = Page.content_panels + [
         FieldPanel("short_description"),
         FieldPanel("description"),
         FieldPanel("technologies"),
+        FieldPanel("role"),
+        FieldPanel("project_type"),
+        FieldPanel("status"),
         FieldPanel("project_url"),
         FieldPanel("github_url"),
         FieldPanel("image"),
+        FieldPanel("tags"),
     ]
+
 
     @property
     def previous_project(self):

@@ -54,7 +54,39 @@
         </div>
     </section>
     {% endif %}
+    {% if page.role or page.project_type or page.status %}
+    <section class="project-meta-section">
+        <div class="container">
 
+            <div class="project-meta">
+
+                {% if page.role %}
+                <div class="project-meta-item">
+                    <span class="project-meta-label">Role</span>
+                    <strong>{{ page.role }}</strong>
+                </div>
+                {% endif %}
+
+                {% if page.project_type %}
+                <div class="project-meta-item">
+                    <span class="project-meta-label">Type</span>
+                    <strong>{{ page.project_type }}</strong>
+                </div>
+                {% endif %}
+
+                {% if page.status %}
+                <div class="project-meta-item">
+                    <span class="project-meta-label">Status</span>
+                    <strong>{{ page.status }}</strong>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </section>
+    {% endif %}
+    
     <section class="project-content">
         <div class="container">
 
@@ -69,13 +101,13 @@
             {% endif %}
 
             {% if page.technologies %}
-            <div class="project-section">
-                <h2>Technologies</h2>
+                <div class="project-section">
+                    <h2>Technologies</h2>
 
-                <div class="content">
-                    {{ page.technologies|richtext }}
+                    <div class="technology-list">
+                        {{ page.technologies|richtext }}
+                    </div>
                 </div>
-            </div>
             {% endif %}
 
             {% if page.project_url or page.github_url %}
