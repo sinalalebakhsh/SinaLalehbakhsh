@@ -3,23 +3,11 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
-from wagtail.snippets.models import register_snippet
 
+from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 
-@register_snippet
-class ProjectTag(models.Model):
-    name = models.CharField(
-        max_length=100,
-        unique=True,
-    )
-
-    slug = models.SlugField(
-        max_length=100,
-        unique=True,
-    )
-
-    def __str__(self):
-        return self.name
 
 
 
@@ -102,6 +90,14 @@ class HomePage(Page):
     ]
 
 
+class ProjectPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        "website.ProjectPage",
+        on_delete=models.CASCADE,
+        related_name="tagged_items",
+    )
+
+
 class ProjectPage(Page):
     parent_page_types = ["website.HomePage"]
     template = "website/project_page.html"
@@ -159,10 +155,10 @@ class ProjectPage(Page):
     )
 
 
-    tags = models.ManyToManyField(
-        ProjectTag,
+    tags = ClusterTaggableManager(
+        through="website.ProjectPageTag",
         blank=True,
-        related_name="projects",
+        help_text="Add tags such as Django, Python, AI, REST API.",
     )
 
 

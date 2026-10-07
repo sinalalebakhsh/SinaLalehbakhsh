@@ -10,6 +10,7 @@ from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from website.sitemaps import PortfolioSitemap
+from website import views
 
 
 sitemaps = {
@@ -19,6 +20,12 @@ sitemaps = {
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
+    
+    path(
+        "topics/<slug:slug>/",
+        views.topic_detail,
+        name="topic_detail",
+    ),
 
     path("admin/", include(wagtailadmin_urls)),
 

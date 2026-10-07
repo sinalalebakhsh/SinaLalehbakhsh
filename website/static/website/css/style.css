@@ -511,3 +511,57 @@ footer {
     margin: 0;
 }
 
+.topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.topic-tag {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.topic-tag:hover {
+    transform: translateY(-2px);
+    opacity: 0.75;
+}
+
+.topic-projects {
+    display: grid;
+    gap: 30px;
+}
+
+.topic-project {
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.topic-project h2 {
+    margin-top: 0;
+}
+
+.topic-project h2 a {
+    text-decoration: none;
+}
+
+.topic-project-description {
+    margin: 15px 0 20px;
+}
+
+.topic-hero {
+    padding: 60px 0 30px;
+}
+
+.topic-content {
+    padding: 30px 0 80px;
+}
+
+

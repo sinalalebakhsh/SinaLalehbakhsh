@@ -1,0 +1,81 @@
+{% extends "website/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}
+#{{ tag.name }} | Sina Lalehbakhsh
+{% endblock %}
+
+{% block description %}
+Projects and articles related to {{ tag.name }} by Sina Lalehbakhsh.
+{% endblock %}
+
+{% block content %}
+
+<main class="topic-page">
+
+    <section class="topic-hero">
+        <div class="container">
+
+            <a href="/#projects" class="back-link">
+                ← Back
+            </a>
+
+            <h1>#{{ tag.name }}</h1>
+
+            <p>
+                Projects and work related to {{ tag.name }}.
+            </p>
+
+        </div>
+    </section>
+
+    <section class="topic-content">
+        <div class="container">
+
+            {% if projects %}
+
+                <div class="topic-projects">
+
+                    {% for project in projects %}
+
+                        <article class="topic-project">
+
+                            <h2>
+                                <a href="{% pageurl project %}">
+                                    {{ project.title }}
+                                </a>
+                            </h2>
+
+                            {% if project.short_description %}
+                                <div class="topic-project-description">
+                                    {{ project.short_description|richtext }}
+                                </div>
+                            {% endif %}
+
+                            <a
+                                href="{% pageurl project %}"
+                                class="project-button secondary"
+                            >
+                                View Project →
+                            </a>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p>No projects have been published for this topic yet.</p>
+
+            {% endif %}
+
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}
+
+

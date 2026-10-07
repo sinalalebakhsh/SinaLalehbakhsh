@@ -110,6 +110,30 @@
                 </div>
             {% endif %}
 
+            {% if page.tags.all %}
+                <div class="project-section">
+
+                    <h2>Topics</h2>
+
+                    <div class="topic-list">
+
+                        {% for tag in page.tags.all %}
+
+                            <a
+                                href="{% url 'topic_detail' tag.slug %}"
+                                class="topic-tag"
+                            >
+                                #{{ tag.name }}
+                            </a>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+            {% endif %}
+
+            
             {% if page.project_url or page.github_url %}
             <div class="project-section">
                 <h2>Explore This Project</h2>
