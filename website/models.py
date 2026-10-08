@@ -14,7 +14,11 @@ from taggit.models import TaggedItemBase
 
 class HomePage(Page):
     max_count = 1
-    subpage_types = ["website.ProjectPage"]
+    subpage_types = [
+        "website.ProjectPage",
+        "website.ArticlesIndexPage",
+    ]
+
     template = "website/home_page.html"
 
     intro = RichTextField(
@@ -96,6 +100,77 @@ class ProjectPageTag(TaggedItemBase):
         on_delete=models.CASCADE,
         related_name="tagged_items",
     )
+
+
+class ArticlesIndexPage(Page):
+    template = "website/articles_index.html"
+
+    parent_page_types = ["website.HomePage"]
+    subpage_types = ["website.ArticlePage"]
+
+    intro = RichTextField(
+        blank=True,
+        help_text="Introduction shown on the articles archive page.",
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+    ]
+
+    def get_articles(self):
+        return (
+            ArticlePage.objects.live()
+            .descendant_of(self)
+            .specific()
+            .order_by("-first_published_at")
+        )
+
+
+class ArticlePage(Page):
+    parent_page_types = ["website.ArticlesIndexPage"]
+    template = "website/article_page.html"
+
+    intro = models.TextField(
+        blank=True,
+        help_text="Short introduction shown below the article title.",
+    )
+
+    body = RichTextField(
+        blank=True,
+        help_text="Main article content.",
+    )
+
+    image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Article cover image.",
+    )
+
+    tags = ClusterTaggableManager(
+        through="website.ArticlePageTag",
+        blank=True,
+        help_text="Add topics such as Django, Python, AI, REST API.",
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+        FieldPanel("body"),
+        FieldPanel("image"),
+        FieldPanel("tags"),
+    ]
+
+class ArticlePageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        "website.ArticlePage",
+        on_delete=models.CASCADE,
+        related_name="tagged_items",
+    )
+
+
+
 
 
 class ProjectPage(Page):

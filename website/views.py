@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from taggit.models import Tag
 
-from .models import ProjectPage
+from .models import ArticlePage, ProjectPage
 
 
 def topic_detail(request, slug):
@@ -14,14 +14,19 @@ def topic_detail(request, slug):
         .order_by("-first_published_at")
     )
 
+    articles = (
+        ArticlePage.objects.live()
+        .filter(tags=tag)
+        .specific()
+        .order_by("-first_published_at")
+    )
+
     return render(
         request,
         "website/topic_detail.html",
         {
             "tag": tag,
             "projects": projects,
+            "articles": articles,
         },
     )
-
-
-    

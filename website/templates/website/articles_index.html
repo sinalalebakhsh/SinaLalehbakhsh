@@ -1,0 +1,100 @@
+{% extends "website/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}
+Articles | Sina Lalehbakhsh
+{% endblock %}
+
+{% block description %}
+Articles about Django, Python, REST APIs, software architecture, AI and modern web development by Sina Lalehbakhsh.
+{% endblock %}
+
+{% block content %}
+
+<main class="articles-page">
+
+    <section class="articles-hero">
+        <div class="container">
+
+            <span class="section-label">Knowledge</span>
+
+            <h1>Articles</h1>
+
+            {% if page.intro %}
+                <div class="articles-intro">
+                    {{ page.intro|richtext }}
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+
+    <section class="articles-content">
+        <div class="container">
+
+            {% for article in page.get_articles %}
+
+                <article class="article-card">
+
+                    {% if article.first_published_at %}
+                        <div class="article-card-meta">
+                            {{ article.first_published_at|date:"F j, Y" }}
+                        </div>
+                    {% endif %}
+
+                    <h2>
+                        <a href="{% pageurl article %}">
+                            {{ article.title }}
+                        </a>
+                    </h2>
+
+                    {% if article.intro %}
+                        <p>
+                            {{ article.intro }}
+                        </p>
+                    {% endif %}
+
+                    {% if article.tags.all %}
+                        <div class="topic-list">
+
+                            {% for tag in article.tags.all %}
+
+                                <a
+                                    href="{% url 'topic_detail' tag.slug %}"
+                                    class="topic-tag"
+                                >
+                                    #{{ tag.name }}
+                                </a>
+
+                            {% endfor %}
+
+                        </div>
+                    {% endif %}
+
+                    <a
+                        href="{% pageurl article %}"
+                        class="project-button secondary"
+                    >
+                        Read Article →
+                    </a>
+
+                </article>
+
+            {% empty %}
+
+                <div class="topic-empty">
+                    <h2>No articles yet</h2>
+                    <p>
+                        Articles about software development, architecture and technology will appear here.
+                    </p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}

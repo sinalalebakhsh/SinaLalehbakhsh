@@ -2,11 +2,11 @@
 {% load wagtailcore_tags %}
 
 {% block title %}
-#{{ tag.name }} | Sina Lalehbakhsh
+{{ tag.name }} | Sina Lalehbakhsh
 {% endblock %}
 
 {% block description %}
-Projects and articles related to {{ tag.name }} by Sina Lalehbakhsh.
+Explore projects and articles about {{ tag.name }} by Sina Lalehbakhsh.
 {% endblock %}
 
 {% block content %}
@@ -15,67 +15,127 @@ Projects and articles related to {{ tag.name }} by Sina Lalehbakhsh.
 
     <section class="topic-hero">
         <div class="container">
+            <span class="topic-label">Topic</span>
+            <h1>{{ tag.name }}</h1>
 
-            <a href="/#projects" class="back-link">
-                ← Back
-            </a>
-
-            <h1>#{{ tag.name }}</h1>
-
-            <p>
-                Projects and work related to {{ tag.name }}.
+            <p class="topic-intro">
+                Projects, articles and ideas related to {{ tag.name }}.
             </p>
-
         </div>
     </section>
 
-    <section class="topic-content">
+
+    {% if projects %}
+    <section class="topic-section">
         <div class="container">
 
-            {% if projects %}
+            <div class="topic-section-header">
+                <span class="topic-section-label">Projects</span>
+                <h2>Projects related to {{ tag.name }}</h2>
+            </div>
 
-                <div class="topic-projects">
+            <div class="topic-projects">
 
-                    {% for project in projects %}
+                {% for project in projects %}
 
-                        <article class="topic-project">
+                <article class="topic-project">
 
-                            <h2>
-                                <a href="{% pageurl project %}">
-                                    {{ project.title }}
-                                </a>
-                            </h2>
+                    <h3>
+                        <a href="{% pageurl project %}">
+                            {{ project.title }}
+                        </a>
+                    </h3>
 
-                            {% if project.short_description %}
-                                <div class="topic-project-description">
-                                    {{ project.short_description|richtext }}
-                                </div>
-                            {% endif %}
+                    {% if project.short_description %}
+                        <div class="topic-project-description">
+                            {{ project.short_description|richtext }}
+                        </div>
+                    {% endif %}
 
-                            <a
-                                href="{% pageurl project %}"
-                                class="project-button secondary"
-                            >
-                                View Project →
-                            </a>
+                    <a
+                        href="{% pageurl project %}"
+                        class="project-button secondary"
+                    >
+                        View Project →
+                    </a>
 
-                        </article>
+                </article>
 
-                    {% endfor %}
+                {% endfor %}
 
-                </div>
-
-            {% else %}
-
-                <p>No projects have been published for this topic yet.</p>
-
-            {% endif %}
+            </div>
 
         </div>
     </section>
+    {% endif %}
+
+
+    {% if articles %}
+    <section class="topic-section topic-articles">
+        <div class="container">
+
+            <div class="topic-section-header">
+                <span class="topic-section-label">Articles</span>
+                <h2>Articles about {{ tag.name }}</h2>
+            </div>
+
+            <div class="article-list">
+
+                {% for article in articles %}
+
+                <article class="article-card">
+
+                    <div class="article-card-meta">
+                        {% if article.first_published_at %}
+                            {{ article.first_published_at|date:"F j, Y" }}
+                        {% endif %}
+                    </div>
+
+                    <h3>
+                        <a href="{% pageurl article %}">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+
+                    {% if article.intro %}
+                        <p>
+                            {{ article.intro }}
+                        </p>
+                    {% endif %}
+
+                    <a
+                        href="{% pageurl article %}"
+                        class="project-button secondary"
+                    >
+                        Read Article →
+                    </a>
+
+                </article>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </section>
+    {% endif %}
+
+
+    {% if not projects and not articles %}
+    <section class="topic-section">
+        <div class="container">
+
+            <div class="topic-empty">
+                <h2>No content yet</h2>
+                <p>
+                    There are no published projects or articles for this topic yet.
+                </p>
+            </div>
+
+        </div>
+    </section>
+    {% endif %}
 
 </main>
 
 {% endblock %}
-
-

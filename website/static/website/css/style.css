@@ -565,3 +565,179 @@ footer {
 }
 
 
+/* =========================================================
+   Professional Knowledge Platform
+   Topics & Articles
+   ========================================================= */
+
+.section-label,
+.topic-label,
+.topic-section-label {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.articles-hero,
+.topic-hero,
+.article-hero {
+    padding: 80px 0 50px;
+}
+
+.articles-intro,
+.topic-intro,
+.article-lead {
+    max-width: 760px;
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+.articles-content,
+.topic-section,
+.article-content {
+    padding: 40px 0 90px;
+}
+
+.article-list {
+    display: grid;
+    gap: 28px;
+}
+
+.article-card {
+    padding: 32px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+}
+
+.article-card h2,
+.article-card h3 {
+    margin-top: 0;
+}
+
+.article-card h2 a,
+.article-card h3 a {
+    text-decoration: none;
+}
+
+.article-card-meta,
+.article-date {
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.article-card p {
+    max-width: 760px;
+    line-height: 1.7;
+}
+
+.article-card .topic-list {
+    margin: 20px 0;
+}
+
+.topic-section {
+    border-top: 1px solid #eee;
+}
+
+.topic-section-header {
+    margin-bottom: 30px;
+}
+
+.topic-section-header h2 {
+    margin-top: 0;
+}
+
+.topic-projects {
+    display: grid;
+    gap: 28px;
+}
+
+.topic-project {
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+}
+
+.topic-project h3 {
+    margin-top: 0;
+}
+
+.topic-project-description {
+    margin: 15px 0 20px;
+    line-height: 1.7;
+}
+
+.topic-articles {
+    margin-top: 20px;
+}
+
+.topic-empty {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.article-header {
+    max-width: 900px;
+}
+
+.article-header h1 {
+    max-width: 900px;
+}
+
+.article-image-section {
+    padding: 20px 0 50px;
+}
+
+.article-main-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+}
+
+.article-body {
+    max-width: 780px;
+    font-size: 1.08rem;
+    line-height: 1.9;
+}
+
+.article-body h2 {
+    margin-top: 60px;
+}
+
+.article-body h3 {
+    margin-top: 40px;
+}
+
+.article-body p {
+    margin-bottom: 24px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 30px;
+    text-decoration: none;
+}
+
+@media (max-width: 700px) {
+
+    .articles-hero,
+    .topic-hero,
+    .article-hero {
+        padding: 55px 0 35px;
+    }
+
+    .article-card,
+    .topic-project {
+        padding: 24px;
+    }
+
+    .article-body {
+        font-size: 1rem;
+    }
+}
+

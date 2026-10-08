@@ -1,0 +1,101 @@
+{% extends "website/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}
+{{ page.title }} | Sina Lalehbakhsh
+{% endblock %}
+
+{% block description %}
+{% if page.intro %}
+{{ page.intro|striptags }}
+{% else %}
+{{ page.title }} — article by Sina Lalehbakhsh.
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<main class="article-page">
+
+    <section class="article-hero">
+        <div class="container">
+
+            <a
+                href="{% pageurl page.get_parent %}"
+                class="back-link"
+            >
+                ← Back to Articles
+            </a>
+
+            <div class="article-header">
+
+                <span class="section-label">Article</span>
+
+                <h1>{{ page.title }}</h1>
+
+                {% if page.intro %}
+                    <div class="article-lead">
+                        {{ page.intro|richtext }}
+                    </div>
+                {% endif %}
+
+                {% if page.first_published_at %}
+                    <div class="article-date">
+                        {{ page.first_published_at|date:"F j, Y" }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </section>
+
+
+    {% if page.image %}
+    <section class="article-image-section">
+        <div class="container">
+
+            {% image page.image width-1200 class="article-main-image" %}
+
+        </div>
+    </section>
+    {% endif %}
+
+
+    <section class="article-content">
+        <div class="container">
+
+            <div class="article-body">
+                {{ page.body|richtext }}
+            </div>
+
+
+            {% if page.tags.all %}
+            <div class="project-section">
+
+                <h2>Topics</h2>
+
+                <div class="topic-list">
+
+                    {% for tag in page.tags.all %}
+
+                        <a
+                            href="{% url 'topic_detail' tag.slug %}"
+                            class="topic-tag"
+                        >
+                            #{{ tag.name }}
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}
