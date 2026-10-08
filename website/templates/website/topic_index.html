@@ -30,16 +30,65 @@ Explore topics covering Django, Python, REST APIs, AI, software architecture and
     <section class="topics-content">
         <div class="container">
 
-            <div class="topic-list">
+            <div class="topics-grid">
 
-                {% for tag in tags %}
+                {% for item in topic_data %}
 
-                    <a
-                        href="{% url 'topic_detail' tag.slug %}"
-                        class="topic-tag"
-                    >
-                        #{{ tag.name }}
-                    </a>
+                    <article class="topic-card">
+
+                        <div class="topic-card-header">
+
+                            <span class="topic-card-label">
+                                Topic
+                            </span>
+
+                            <h2>
+                                <a href="{% url 'topic_detail' item.tag.slug %}">
+                                    #{{ item.tag.name }}
+                                </a>
+                            </h2>
+
+                        </div>
+
+
+                        <div class="topic-card-stats">
+
+                            <div class="topic-stat">
+                                <strong>
+                                    {{ item.projects_count }}
+                                </strong>
+
+                                <span>
+                                    Project{{ item.projects_count|pluralize }}
+                                </span>
+                            </div>
+
+
+                            <div class="topic-stat">
+                                <strong>
+                                    {{ item.articles_count }}
+                                </strong>
+
+                                <span>
+                                    Article{{ item.articles_count|pluralize }}
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="topic-card-footer">
+
+                            <a
+                                href="{% url 'topic_detail' item.tag.slug %}"
+                                class="project-button secondary"
+                            >
+                                Explore Topic →
+                            </a>
+
+                        </div>
+
+                    </article>
 
                 {% empty %}
 
@@ -55,4 +104,3 @@ Explore topics covering Django, Python, REST APIs, AI, software architecture and
 </main>
 
 {% endblock %}
-

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block description %}
-Explore projects and articles about {{ tag.name }} by Sina Lalehbakhsh.
+Explore projects, articles and ideas about {{ tag.name }} by Sina Lalehbakhsh.
 {% endblock %}
 
 {% block content %}
@@ -15,12 +15,15 @@ Explore projects and articles about {{ tag.name }} by Sina Lalehbakhsh.
 
     <section class="topic-hero">
         <div class="container">
-            <span class="topic-label">Topic</span>
+
+            <span class="topic-label">Knowledge Topic</span>
+
             <h1>{{ tag.name }}</h1>
 
             <p class="topic-intro">
-                Projects, articles and ideas related to {{ tag.name }}.
+                Explore projects, articles and ideas related to {{ tag.name }}.
             </p>
+
         </div>
     </section>
 
@@ -31,7 +34,10 @@ Explore projects and articles about {{ tag.name }} by Sina Lalehbakhsh.
 
             <div class="topic-section-header">
                 <span class="topic-section-label">Projects</span>
-                <h2>Projects related to {{ tag.name }}</h2>
+
+                <h2>
+                    Projects related to {{ tag.name }}
+                </h2>
             </div>
 
             <div class="topic-projects">
@@ -76,7 +82,10 @@ Explore projects and articles about {{ tag.name }} by Sina Lalehbakhsh.
 
             <div class="topic-section-header">
                 <span class="topic-section-label">Articles</span>
-                <h2>Articles about {{ tag.name }}</h2>
+
+                <h2>
+                    Articles about {{ tag.name }}
+                </h2>
             </div>
 
             <div class="article-list">
@@ -86,9 +95,11 @@ Explore projects and articles about {{ tag.name }} by Sina Lalehbakhsh.
                 <article class="article-card">
 
                     <div class="article-card-meta">
+
                         {% if article.first_published_at %}
                             {{ article.first_published_at|date:"F j, Y" }}
                         {% endif %}
+
                     </div>
 
                     <h3>
@@ -121,15 +132,50 @@ Explore projects and articles about {{ tag.name }} by Sina Lalehbakhsh.
     {% endif %}
 
 
+    {% if related_topics %}
+    <section class="topic-section topic-related">
+        <div class="container">
+
+            <div class="topic-section-header">
+                <span class="topic-section-label">Explore Further</span>
+
+                <h2>
+                    Related Topics
+                </h2>
+            </div>
+
+            <div class="topic-list">
+
+                {% for related_topic in related_topics %}
+
+                    <a
+                        href="{% url 'topic_detail' related_topic.slug %}"
+                        class="topic-tag"
+                    >
+                        #{{ related_topic.name }}
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </section>
+    {% endif %}
+
+
     {% if not projects and not articles %}
     <section class="topic-section">
         <div class="container">
 
             <div class="topic-empty">
+
                 <h2>No content yet</h2>
+
                 <p>
                     There are no published projects or articles for this topic yet.
                 </p>
+
             </div>
 
         </div>

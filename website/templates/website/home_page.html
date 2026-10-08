@@ -84,7 +84,8 @@ Django Backend Developer and Software Developer focused on Python, Django, REST 
 
         <div class="project-grid">
 
-            {% for project in page.get_children.live.specific %}
+            
+            {% for project in page.get_projects %}
                 <article class="project-card">
 
                     {% if project.image %}

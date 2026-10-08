@@ -93,7 +93,16 @@ class HomePage(Page):
         FieldPanel("profile_image"),
     ]
 
+    def get_projects(self):
+        return (
+            ProjectPage.objects.live()
+            .descendant_of(self)
+            .specific()
+            .order_by("-first_published_at")
+        )
 
+
+        
 class ProjectPageTag(TaggedItemBase):
     content_object = ParentalKey(
         "website.ProjectPage",
@@ -178,15 +187,25 @@ class ArticlePage(Page):
         )
 
 
+    def get_related_projects(self):
+        from .models import ProjectPage
+
+        tag_ids = self.tags.values_list("tag_id", flat=True)
+
+        return (
+            ProjectPage.objects.live()
+            .filter(tags__tag_id__in=tag_ids)
+            .specific()
+            .distinct()
+            .order_by("-first_published_at")
+        )
+
 class ArticlePageTag(TaggedItemBase):
     content_object = ParentalKey(
         "website.ArticlePage",
         on_delete=models.CASCADE,
         related_name="tagged_items",
     )
-
-
-
 
 
 class ProjectPage(Page):
@@ -304,6 +323,7 @@ class ProjectPage(Page):
             .distinct()
             .order_by("-first_published_at")[:3]
         )
+
 
 
     def get_related_articles(self):

@@ -94,10 +94,12 @@
             {% endif %}
 
         </div>
+    </section>
 
 
+    {% with related_projects=page.get_related_projects related_articles=page.get_related_articles %}
 
-        {% if page.get_related_articles or page.get_related_projects %}
+        {% if related_projects or related_articles %}
 
             <section class="related-content">
 
@@ -110,7 +112,7 @@
                     <h2>Related Content</h2>
 
 
-                    {% if page.get_related_projects %}
+                    {% if related_projects %}
 
                         <div class="related-group">
 
@@ -118,7 +120,7 @@
 
                             <div class="topic-projects">
 
-                                {% for project in page.get_related_projects %}
+                                {% for project in related_projects %}
 
                                     <article class="topic-project">
 
@@ -145,7 +147,7 @@
                     {% endif %}
 
 
-                    {% if page.get_related_articles %}
+                    {% if related_articles %}
 
                         <div class="related-group">
 
@@ -153,7 +155,7 @@
 
                             <div class="article-list">
 
-                                {% for article in page.get_related_articles %}
+                                {% for article in related_articles %}
 
                                     <article class="article-card">
 
@@ -182,8 +184,8 @@
             </section>
 
         {% endif %}
-        
-    </section>
+
+    {% endwith %}
 
 </main>
 
