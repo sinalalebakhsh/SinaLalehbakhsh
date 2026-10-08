@@ -94,6 +94,95 @@
             {% endif %}
 
         </div>
+
+
+
+        {% if page.get_related_articles or page.get_related_projects %}
+
+            <section class="related-content">
+
+                <div class="container">
+
+                    <span class="section-label">
+                        Continue Exploring
+                    </span>
+
+                    <h2>Related Content</h2>
+
+
+                    {% if page.get_related_projects %}
+
+                        <div class="related-group">
+
+                            <h3>Projects</h3>
+
+                            <div class="topic-projects">
+
+                                {% for project in page.get_related_projects %}
+
+                                    <article class="topic-project">
+
+                                        <h4>
+                                            <a href="{% pageurl project %}">
+                                                {{ project.title }}
+                                            </a>
+                                        </h4>
+
+                                        {% if project.short_description %}
+                                            <div class="topic-project-description">
+                                                {{ project.short_description|richtext }}
+                                            </div>
+                                        {% endif %}
+
+                                    </article>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if page.get_related_articles %}
+
+                        <div class="related-group">
+
+                            <h3>Articles</h3>
+
+                            <div class="article-list">
+
+                                {% for article in page.get_related_articles %}
+
+                                    <article class="article-card">
+
+                                        <h4>
+                                            <a href="{% pageurl article %}">
+                                                {{ article.title }}
+                                            </a>
+                                        </h4>
+
+                                        {% if article.intro %}
+                                            <p>{{ article.intro }}</p>
+                                        {% endif %}
+
+                                    </article>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+        
     </section>
 
 </main>

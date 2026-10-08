@@ -1,0 +1,156 @@
+{% extends "website/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}
+Search | Sina Lalehbakhsh
+{% endblock %}
+
+{% block description %}
+Search projects and articles by Sina Lalehbakhsh.
+{% endblock %}
+
+{% block content %}
+
+<main class="search-page">
+
+    <section class="search-hero">
+        <div class="container">
+
+            <span class="section-label">Knowledge</span>
+
+            <h1>Search</h1>
+
+            <form method="get" action="{% url 'search' %}" class="search-form">
+
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ query }}"
+                    placeholder="Search projects and articles..."
+                    aria-label="Search"
+                >
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+    </section>
+
+
+    {% if query %}
+
+    <section class="search-results">
+        <div class="container">
+
+            <p class="search-summary">
+                Results for <strong>"{{ query }}"</strong>
+            </p>
+
+
+            {% if projects %}
+
+                <div class="search-group">
+
+                    <h2>Projects</h2>
+
+                    <div class="topic-projects">
+
+                        {% for project in projects %}
+
+                            <article class="topic-project">
+
+                                <h3>
+                                    <a href="{% pageurl project %}">
+                                        {{ project.title }}
+                                    </a>
+                                </h3>
+
+                                {% if project.short_description %}
+                                    <div class="topic-project-description">
+                                        {{ project.short_description|richtext }}
+                                    </div>
+                                {% endif %}
+
+                                <a
+                                    href="{% pageurl project %}"
+                                    class="project-button secondary"
+                                >
+                                    View Project →
+                                </a>
+
+                            </article>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+            {% if articles %}
+
+                <div class="search-group">
+
+                    <h2>Articles</h2>
+
+                    <div class="article-list">
+
+                        {% for article in articles %}
+
+                            <article class="article-card">
+
+                                <h3>
+                                    <a href="{% pageurl article %}">
+                                        {{ article.title }}
+                                    </a>
+                                </h3>
+
+                                {% if article.intro %}
+                                    <p>{{ article.intro }}</p>
+                                {% endif %}
+
+                                <a
+                                    href="{% pageurl article %}"
+                                    class="project-button secondary"
+                                >
+                                    Read Article →
+                                </a>
+
+                            </article>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+            {% if not projects and not articles %}
+
+                <div class="topic-empty">
+
+                    <h2>No results found</h2>
+
+                    <p>
+                        No projects or articles matched your search.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+    </section>
+
+    {% endif %}
+
+</main>
+
+{% endblock %}

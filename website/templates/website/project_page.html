@@ -203,6 +203,53 @@
             </div>
 
         </div>
+        <section class="related-content">
+
+            <div class="container">
+
+                <span class="section-label">
+                    Continue Exploring
+                </span>
+
+                <h2>Related Content</h2>
+
+
+                {% if page.get_related_articles %}
+
+                    <div class="related-group">
+
+                        <h3>Articles</h3>
+
+                        <div class="article-list">
+
+                            {% for article in page.get_related_articles %}
+
+                                <article class="article-card">
+
+                                    <h4>
+                                        <a href="{% pageurl article %}">
+                                            {{ article.title }}
+                                        </a>
+                                    </h4>
+
+                                    {% if article.intro %}
+                                        <p>{{ article.intro }}</p>
+                                    {% endif %}
+
+                                </article>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+        
     </section>
 
 </main>

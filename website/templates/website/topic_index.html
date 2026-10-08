@@ -1,0 +1,58 @@
+{% extends "website/base.html" %}
+
+{% block title %}
+Topics | Sina Lalehbakhsh
+{% endblock %}
+
+{% block description %}
+Explore topics covering Django, Python, REST APIs, AI, software architecture and web development.
+{% endblock %}
+
+{% block content %}
+
+<main class="topics-page">
+
+    <section class="topic-hero">
+        <div class="container">
+
+            <span class="topic-label">Knowledge</span>
+
+            <h1>Topics</h1>
+
+            <p class="topic-intro">
+                Explore projects, articles and ideas organized by topic.
+            </p>
+
+        </div>
+    </section>
+
+
+    <section class="topics-content">
+        <div class="container">
+
+            <div class="topic-list">
+
+                {% for tag in tags %}
+
+                    <a
+                        href="{% url 'topic_detail' tag.slug %}"
+                        class="topic-tag"
+                    >
+                        #{{ tag.name }}
+                    </a>
+
+                {% empty %}
+
+                    <p>No topics have been created yet.</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}
+

@@ -20,12 +20,15 @@ sitemaps = {
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
-    
+
     path(
-        "topics/<slug:slug>/",
+        "topics/<str:slug>/",
         views.topic_detail,
         name="topic_detail",
     ),
+
+    path("topics/", views.topic_index, name="topic_index"),
+    path("search/", views.search, name="search"),
 
     path("admin/", include(wagtailadmin_urls)),
 

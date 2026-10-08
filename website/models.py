@@ -162,6 +162,22 @@ class ArticlePage(Page):
         FieldPanel("tags"),
     ]
 
+    def get_related_articles(self):
+        tags = self.tags.all()
+
+        if not tags:
+            return ArticlePage.objects.none()
+
+        return (
+            ArticlePage.objects.live()
+            .filter(tags__in=tags)
+            .exclude(id=self.id)
+            .specific()
+            .distinct()
+            .order_by("-first_published_at")[:3]
+        )
+
+
 class ArticlePageTag(TaggedItemBase):
     content_object = ParentalKey(
         "website.ArticlePage",
@@ -271,4 +287,35 @@ class ProjectPage(Page):
             .filter(path__gt=self.path)
             .order_by("path")
             .first()
+        )
+
+
+    def get_related_projects(self):
+        tags = self.tags.all()
+
+        if not tags:
+            return ProjectPage.objects.none()
+
+        return (
+            ProjectPage.objects.live()
+            .filter(tags__in=tags)
+            .exclude(id=self.id)
+            .specific()
+            .distinct()
+            .order_by("-first_published_at")[:3]
+        )
+
+
+    def get_related_articles(self):
+        tags = self.tags.all()
+
+        if not tags:
+            return ArticlePage.objects.none()
+
+        return (
+            ArticlePage.objects.live()
+            .filter(tags__in=tags)
+            .specific()
+            .distinct()
+            .order_by("-first_published_at")[:3]
         )
