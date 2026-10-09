@@ -1,3 +1,11 @@
+""" 
+pipenv run python manage.py runserver
+pipenv run python manage.py test website
+pipenv run python manage.py check
+pipenv run python manage.py makemigrations --check --dry-run
+"""
+
+
 import os
 from pathlib import Path
 

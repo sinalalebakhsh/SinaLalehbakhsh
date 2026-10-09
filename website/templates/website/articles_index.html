@@ -46,9 +46,6 @@ Articles about Django, Python, REST APIs, software development, architecture, an
                             {% image article.image fill-800x450 %}
                         {% endif %}
 
-                        <span class="section-label">
-                            Article
-                        </span>
 
                         <h2>
                             <a href="{% pageurl article %}">
@@ -57,9 +54,9 @@ Articles about Django, Python, REST APIs, software development, architecture, an
                         </h2>
 
                         {% if article.intro %}
-                            <p>
-                                {{ article.intro }}
-                            </p>
+                            <div class="article-card-intro">
+                                {{ article.intro|richtext }}
+                            </div>
                         {% endif %}
 
                         {% if article.first_published_at %}
