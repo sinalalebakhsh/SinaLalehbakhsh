@@ -1,3 +1,4 @@
+```django
 {% extends "website/base.html" %}
 {% load wagtailcore_tags %}
 
@@ -16,21 +17,30 @@ Search projects and articles by Sina Lalehbakhsh.
     <section class="search-hero">
         <div class="container">
 
-            <span class="section-label">Knowledge</span>
+            <span class="topic-label">Knowledge</span>
 
             <h1>Search</h1>
 
+            <p class="topic-intro">
+                Search projects, articles and ideas across the site.
+            </p>
+
             <form method="get" action="{% url 'search' %}" class="search-form">
 
+                <label for="search-query" class="sr-only">
+                    Search
+                </label>
+
                 <input
+                    id="search-query"
                     type="search"
                     name="q"
                     value="{{ query }}"
-                    placeholder="Search projects and articles..."
-                    aria-label="Search"
+                    placeholder="Search Django, Python, REST API..."
+                    autocomplete="off"
                 >
 
-                <button type="submit">
+                <button type="submit" class="project-button">
                     Search
                 </button>
 
@@ -42,115 +52,158 @@ Search projects and articles by Sina Lalehbakhsh.
 
     {% if query %}
 
-    <section class="search-results">
-        <div class="container">
+        <section class="search-results">
+            <div class="container">
 
-            <p class="search-summary">
-                Results for <strong>"{{ query }}"</strong>
-            </p>
+                <div class="search-results-header">
+
+                    <span class="topic-section-label">
+                        Search Results
+                    </span>
+
+                    <h2>
+                        Results for "{{ query }}"
+                    </h2>
+
+                </div>
 
 
-            {% if projects %}
+                {% if projects %}
 
-                <div class="search-group">
+                    <section class="search-result-group">
 
-                    <h2>Projects</h2>
+                        <div class="search-result-group-header">
+                            <h3>Projects</h3>
+                            <span>{{ projects|length }}</span>
+                        </div>
 
-                    <div class="topic-projects">
+                        <div class="topic-projects">
 
-                        {% for project in projects %}
+                            {% for project in projects %}
 
-                            <article class="topic-project">
+                                <article class="topic-project">
 
-                                <h3>
-                                    <a href="{% pageurl project %}">
-                                        {{ project.title }}
+                                    <h4>
+                                        <a href="{% pageurl project %}">
+                                            {{ project.title }}
+                                        </a>
+                                    </h4>
+
+                                    {% if project.short_description %}
+                                        <div class="topic-project-description">
+                                            {{ project.short_description|richtext }}
+                                        </div>
+                                    {% endif %}
+
+                                    <a
+                                        href="{% pageurl project %}"
+                                        class="project-button secondary"
+                                    >
+                                        View Project →
                                     </a>
-                                </h3>
 
-                                {% if project.short_description %}
-                                    <div class="topic-project-description">
-                                        {{ project.short_description|richtext }}
-                                    </div>
-                                {% endif %}
+                                </article>
 
-                                <a
-                                    href="{% pageurl project %}"
-                                    class="project-button secondary"
-                                >
-                                    View Project →
-                                </a>
+                            {% endfor %}
 
-                            </article>
+                        </div>
 
-                        {% endfor %}
+                    </section>
+
+                {% endif %}
+
+
+                {% if articles %}
+
+                    <section class="search-result-group search-articles">
+
+                        <div class="search-result-group-header">
+                            <h3>Articles</h3>
+                            <span>{{ articles|length }}</span>
+                        </div>
+
+                        <div class="article-list">
+
+                            {% for article in articles %}
+
+                                <article class="article-card">
+
+                                    {% if article.first_published_at %}
+                                        <div class="article-card-meta">
+                                            {{ article.first_published_at|date:"F j, Y" }}
+                                        </div>
+                                    {% endif %}
+
+                                    <h4>
+                                        <a href="{% pageurl article %}">
+                                            {{ article.title }}
+                                        </a>
+                                    </h4>
+
+                                    {% if article.intro %}
+                                        <p>
+                                            {{ article.intro }}
+                                        </p>
+                                    {% endif %}
+
+                                    <a
+                                        href="{% pageurl article %}"
+                                        class="project-button secondary"
+                                    >
+                                        Read Article →
+                                    </a>
+
+                                </article>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </section>
+
+                {% endif %}
+
+
+                {% if not projects and not articles %}
+
+                    <div class="search-empty">
+
+                        <h2>No results found</h2>
+
+                        <p>
+                            No projects or articles matched
+                            <strong>"{{ query }}"</strong>.
+                        </p>
+
+                        <p>
+                            Try another keyword such as Django, Python,
+                            REST API or software development.
+                        </p>
 
                     </div>
 
-                </div>
+                {% endif %}
 
-            {% endif %}
+            </div>
+        </section>
 
+    {% else %}
 
-            {% if articles %}
+        <section class="search-empty search-empty-initial">
+            <div class="container">
 
-                <div class="search-group">
+                <h2>Start searching</h2>
 
-                    <h2>Articles</h2>
+                <p>
+                    Enter a keyword to search projects and articles.
+                </p>
 
-                    <div class="article-list">
-
-                        {% for article in articles %}
-
-                            <article class="article-card">
-
-                                <h3>
-                                    <a href="{% pageurl article %}">
-                                        {{ article.title }}
-                                    </a>
-                                </h3>
-
-                                {% if article.intro %}
-                                    <p>{{ article.intro }}</p>
-                                {% endif %}
-
-                                <a
-                                    href="{% pageurl article %}"
-                                    class="project-button secondary"
-                                >
-                                    Read Article →
-                                </a>
-
-                            </article>
-
-                        {% endfor %}
-
-                    </div>
-
-                </div>
-
-            {% endif %}
-
-
-            {% if not projects and not articles %}
-
-                <div class="topic-empty">
-
-                    <h2>No results found</h2>
-
-                    <p>
-                        No projects or articles matched your search.
-                    </p>
-
-                </div>
-
-            {% endif %}
-
-        </div>
-    </section>
+            </div>
+        </section>
 
     {% endif %}
 
 </main>
 
 {% endblock %}
+```

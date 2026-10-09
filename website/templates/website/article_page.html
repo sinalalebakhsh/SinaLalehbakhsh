@@ -2,10 +2,34 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block title %}
-{{ page.title }} | Sina Lalehbakhsh
+{{ page.title }} | Articles | Sina Lalehbakhsh
 {% endblock %}
 
 {% block description %}
+{% if page.intro %}
+{{ page.intro|striptags }}
+{% else %}
+{{ page.title }} — article by Sina Lalehbakhsh.
+{% endif %}
+{% endblock %}
+
+{% block og_title %}
+{{ page.title }} | Articles | Sina Lalehbakhsh
+{% endblock %}
+
+{% block og_description %}
+{% if page.intro %}
+{{ page.intro|striptags }}
+{% else %}
+{{ page.title }} — article by Sina Lalehbakhsh.
+{% endif %}
+{% endblock %}
+
+{% block twitter_title %}
+{{ page.title }} | Articles | Sina Lalehbakhsh
+{% endblock %}
+
+{% block twitter_description %}
 {% if page.intro %}
 {{ page.intro|striptags }}
 {% else %}

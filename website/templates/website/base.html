@@ -30,6 +30,17 @@
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'website/og-image.svg' %}">
     <meta property="og:image:type" content="image/svg+xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{% block twitter_title %}Sina Lalehbakhsh | Django Backend Developer{% endblock %}">
+    <meta
+        name="twitter:description"
+        content="{% block twitter_description %}Sina Lalehbakhsh — Django Backend Developer and Software Developer focused on Python, Django, REST APIs and scalable web applications.{% endblock %}"
+    >
+    <meta
+        name="twitter:image"
+        content="{{ request.scheme }}://{{ request.get_host }}{% static 'website/og-image.svg' %}"
+    >
+
 
     <link rel="icon" type="image/svg+xml" href="{% static 'website/favicon.svg' %}">
     <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
@@ -42,19 +53,7 @@
             "jobTitle": "Django Backend Developer"
         }
     </script>
-    <!-- <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Sina Lalehbakhsh",
-            "url": "{{ request.scheme }}://{{ request.get_host }}",
-            "jobTitle": "Django Backend Developer",
-            "sameAs": [
-                "{{ page.linkedin_url|default:'' }}",
-                "{{ page.github_url|default:'' }}"
-            ]
-        }
-    </script> -->
+   
 </head>
 
 <body>
@@ -70,6 +69,7 @@
             <li><a href="/#about">About</a></li>
             <li><a href="/#skills">Skills</a></li>
             <li><a href="/#projects">Projects</a></li>
+            <li><a href="/articles/">Articles</a></li>
             <li><a href="{% url 'topic_index' %}">Topics</a></li>
             <li><a href="{% url 'search' %}">Search</a></li>
             <li><a href="/#experience">Experience</a></li>

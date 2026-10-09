@@ -98,6 +98,10 @@ def search(request):
     articles = ArticlePage.objects.none()
 
     if query:
+        matching_tags = Tag.objects.filter(
+            name__icontains=query
+        )
+
         projects = (
             ProjectPage.objects.live()
             .filter(
@@ -105,6 +109,7 @@ def search(request):
                 | Q(short_description__icontains=query)
                 | Q(description__icontains=query)
                 | Q(technologies__icontains=query)
+                | Q(tags__in=matching_tags)
             )
             .specific()
             .distinct()
@@ -116,6 +121,7 @@ def search(request):
                 Q(title__icontains=query)
                 | Q(intro__icontains=query)
                 | Q(body__icontains=query)
+                | Q(tags__in=matching_tags)
             )
             .specific()
             .distinct()
@@ -130,5 +136,4 @@ def search(request):
             "articles": articles,
         },
     )
-
 

@@ -190,11 +190,11 @@ class ArticlePage(Page):
     def get_related_projects(self):
         from .models import ProjectPage
 
-        tag_ids = self.tags.values_list("tag_id", flat=True)
+        tag_ids = self.tags.values_list("id", flat=True)
 
         return (
             ProjectPage.objects.live()
-            .filter(tags__tag_id__in=tag_ids)
+            .filter(tags__id__in=tag_ids)
             .specific()
             .distinct()
             .order_by("-first_published_at")

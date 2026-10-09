@@ -25,6 +25,18 @@
 {% endif %}
 {% endblock %}
 
+{% block twitter_title %}
+{{ page.title }} | Sina Lalehbakhsh
+{% endblock %}
+
+{% block twitter_description %}
+{% if page.short_description %}
+{{ page.short_description|striptags }}
+{% else %}
+{{ page.title }} — software development project by Sina Lalehbakhsh.
+{% endif %}
+{% endblock %}
+
 {% block content %}
 
 <main class="project-page">
