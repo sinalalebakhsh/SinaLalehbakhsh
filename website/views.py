@@ -7,7 +7,6 @@ from .models import ArticlePage, ProjectPage
 
 def topic_index(request):
     tags = Tag.objects.order_by("name")
-
     topic_data = []
 
     for tag in tags:
@@ -23,6 +22,7 @@ def topic_index(request):
             .count()
         )
 
+        # موضوعی که هیچ محتوای منتشرشده‌ای ندارد، نمایش داده نشود.
         if projects_count == 0 and articles_count == 0:
             continue
 
@@ -43,7 +43,6 @@ def topic_index(request):
     )
 
 
-
 def topic_detail(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
 
@@ -61,25 +60,6 @@ def topic_detail(request, slug):
         .order_by("-first_published_at")
     )
 
-    related_topic_ids = set()
-
-    for project in projects:
-        related_topic_ids.update(
-            project.tags.values_list("id", flat=True)
-        )
-
-    for article in articles:
-        related_topic_ids.update(
-            article.tags.values_list("id", flat=True)
-        )
-
-    related_topics = (
-        Tag.objects
-        .filter(id__in=related_topic_ids)
-        .exclude(id=tag.id)
-        .order_by("name")
-    )
-
     return render(
         request,
         "website/topic_detail.html",
@@ -87,10 +67,8 @@ def topic_detail(request, slug):
             "tag": tag,
             "projects": projects,
             "articles": articles,
-            "related_topics": related_topics,
         },
     )
-
 def search(request):
     query = request.GET.get("q", "").strip()
 
