@@ -1,10 +1,11 @@
 from django.contrib.sitemaps import Sitemap
+from wagtail.models import Page
 
 from website.models import (
-    ArticlePage,
-    ArticlesIndexPage,
     HomePage,
     ProjectPage,
+    ArticlesIndexPage,
+    ArticlePage,
 )
 
 
@@ -14,10 +15,16 @@ class PortfolioSitemap(Sitemap):
 
     def items(self):
         return (
-            list(HomePage.objects.live())
-            + list(ProjectPage.objects.live())
-            + list(ArticlesIndexPage.objects.live())
-            + list(ArticlePage.objects.live())
+            Page.objects.live()
+            .public()
+            .type(
+                HomePage,
+                ProjectPage,
+                ArticlesIndexPage,
+                ArticlePage,
+            )
+            .specific()
+            .order_by("path")
         )
 
     def location(self, obj):
@@ -25,5 +32,3 @@ class PortfolioSitemap(Sitemap):
 
     def lastmod(self, obj):
         return obj.last_published_at
-
-        
